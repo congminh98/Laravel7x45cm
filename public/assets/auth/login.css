@@ -1,0 +1,51 @@
+div.div-custom_css {
+    display: flex;
+    justify-content: space-between;
+}
+
+div.or-login {
+    display: flex;
+    align-items: center;
+}
+
+div.or-login hr {
+    flex: 1;
+    border-top: 1px solid rgba(27, 27, 27, 0.1);
+}
+
+div.login-action input._btn {
+    max-width: 100% !important;
+}
+div.custom-social_login {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+div.custom-social_login a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border: 1px solid #dcdfe6;
+    padding: 10px 20px;
+    flex: 1;
+    margin-right: 10px;
+    cursor: pointer;
+}
+div.custom-social_login a:last-child {
+    margin-right: unset;
+}
+div.custom-social_login a:hover {
+    color: #409eff;
+    border-color: #c6e2ff;
+    background-color: #ecf5ff;
+}
+div.custom-social_login a img {
+    width: 20px;
+    margin-right: 5px;
+}
+.custom-modal_phone .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

@@ -57,7 +57,7 @@
                                                     <input class="_btn" type="submit" value="Sign In" />
                                                 </div>
                                                 <div class="div-custom_css form-item">
-                                                    <a href="#">Forgot your password?</a>
+                                                    <a href="{{route('account.login.index')}}#reset-password" onclick="showRecoverPasswordForm()">Forgot your password?</a>
                                                     <a href="#" data-toggle="modal" data-target="#phoneModal" data-backdrop="static" data-keyboard="false">Create account</a>
                                                 </div>
                                                 <div class="or-login form-item note text-center">
@@ -112,17 +112,22 @@
                                         </div>
                                         <div id="recover-password" style="display:none;" class="customers">
                                             <h2>Reset Password</h2>
-                                            <p class="note">We will send you an email to reset your password.</p>
-                                            <form method="post" action="/account/recover" accept-charset="UTF-8"><input type="hidden" name="form_type" value="recover_customer_password" /><input
-                                                    type="hidden" name="utf8" value="✓" />
+                                            {{-- <p class="note">We will send you an email to reset your password.</p> --}}
+                                            @if (session('status'))
+                                            <div class="alert alert-success" role="alert">
+                                                {{ session('status') }}
+                                            </div>
+                                            @endif
+                                            <form method="POST" action="{{ \LaravelLocalization::localizeURL(route('password.email')) }}">
+                                                @csrf
+                                                <input type="hidden" name="form_type" value="recover_customer_password" />
+                                                <input type="hidden" name="utf8" value="✓" />
                                                 <div class="clearfix large_form form-item">
                                                     <input type="email" value="" placeholder="Email Address" size="30" name="email" id="recover-email" class="text" />
                                                 </div>
-                                                <div class="action_bottom">
-                                                    <input class="_btn" type="submit" value="Login" />
-                                                    <div class="note note_text_group">
-                                                        or<span class="note_link"><a href="#" onclick="hideRecoverPasswordForm();return false;">Cancel</a></span>
-                                                    </div>
+                                                <div class="action-bottom" style="display: flex;justify-content: space-between;padding: 10px">
+                                                    <input class="_btn" type="submit" value="Send" style="max-width: 45%" />
+                                                    <input class="_btn" value="Cancle" onclick="hideRecoverPasswordForm();return false;" style="max-width: 45%">
                                                 </div>
                                             </form>
                                         </div>
@@ -143,7 +148,7 @@
                 document.getElementById('recover-password').style.display = 'none';
                 document.getElementById('login').style.display = 'block';
             }
-            if (window.location.hash == '#recover') {
+            if (window.location.hash == '#reset-password') {
                 showRecoverPasswordForm()
             }
         </script>

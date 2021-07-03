@@ -758,14 +758,15 @@
                                     </ul>
                                     <div class="nav-account-icon">
                                         <div class="icon-item wishlist-area">
-                                            <a href="/pages/wish-list">
+                                            <a href="#">
                                                 <i class="cs-icon icon-heart-o"></i>
                                                 <span class="wishlist-quantity">0</span>
                                             </a>
                                         </div>
                                         <div class="icon-item cart-area">
                                             <div class="m_cart-group">
-                                                <a class="cart _icon-action dropdown-toggle dropdown-link" data-toggle="dropdown">
+                                                {{-- <a class="cart _icon-action dropdown-toggle dropdown-link" data-toggle="dropdown"> --}}
+                                                <a href="{{route('cart.index')}}" class="cart _icon-action">
                                                     <div class="num-items-in-cart">
                                                         <i class="cs-icon icon-cart"></i>
                                                         <span class="cart_text">
@@ -1263,7 +1264,7 @@
                         <div class="info-header-content-inner">
                             <div class="info-header-item info-header-sidebar">
                                 <ul class="wish-compare-content">
-                                    <li class="link-item"><a href="/pages/wish-list">My Wishlist</a></li>
+                                    <li class="link-item"><a href="#">My Wishlist</a></li>
                                 </ul>
                                 <div class="currencies-switcher">
                                     <span class="currencies-title">

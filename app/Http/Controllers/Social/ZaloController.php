@@ -25,6 +25,7 @@ class ZaloController extends Controller
     {
         try {
             if ($request->code) {
+                DB::beginTransaction();
                 $client = new Client();
                 $config = Config::get('services.zalo');
                 $code = $request->code;
@@ -39,9 +40,11 @@ class ZaloController extends Controller
                     $responseProfile = json_decode((string) $profile, true);
                     $finduser = User::where('social_id', $responseProfile['id'])->first();
                     if (isset($finduser) && $finduser != null) {
+                        DB::rollback();
                         Auth::login($finduser);
                         return redirect()->intended(route('home'))->with('success', 'Đăng nhập thành công');
                     } else {
+                        DB::beginTransaction();
                         $newUser = User::create([
                             'social_id' => $responseProfile['id'] ?? '',
                             'name' => $responseProfile['name'] ?? '',
@@ -50,12 +53,14 @@ class ZaloController extends Controller
                             'profile_photo_path' => $responseProfile['picture']['data']['url'] ?? '',
                             'password' => encrypt('abc@1234')
                         ]);
+                        DB::commit();
                         Auth::login($newUser);
                         return redirect()->intended(route('home'))->with('success', 'Đăng nhập thành công');
                     }
                 }
             }
         } catch (\Throwable $th) {
+            DB::rollback();
             throw $th;
         }
     }

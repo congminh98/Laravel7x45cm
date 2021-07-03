@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -25,21 +27,6 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
         try {
-            // $user = User::where('email', '=', $request->email)->first();
-            // if (!$user) {
-            //     return redirect()->back()->withInput()->with(
-            //         'errorForm',
-            //         __('auth.account.email.not_exist'),
-            //     );
-            // } else {
-            //     $checkPW = Hash::check($request->password, $user->password);
-            //     if (!$checkPW) {
-            //         return redirect()->back()->withInput()->with(
-            //             'errorForm',
-            //             'Mật khẩu không trùng khớp với tài khoản.',
-            //         );
-            //     }
-            // }
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
                 return redirect()->intended(route('home'))->with('success', 'Đăng nhập thành công');
@@ -66,7 +53,7 @@ class LoginController extends Controller
             $request->session()->invalidate();
             $request->session()->regenerateToken();
             return redirect(route('home'))->with(
-                'toast_success',
+                'success',
                 'Đăng xuất thành công.',
             );
         } catch (\Exception $e) {
